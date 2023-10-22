@@ -11,6 +11,11 @@ Tag.init(
       type: DataTypes.STRING,
       allownull: false
     },
+    id: {
+      type: DataTypes.INTERGER, 
+      primaryKey: true,
+      autoIncrement: true
+    }
   },
   {
     sequelize,
