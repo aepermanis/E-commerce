@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Products
   try {
     const allCategories = await Category.findAll({include: [{model: Product}]})
-    return allCategories
+    res.status(200).json(allCategories) 
   } catch(error){
     res.status(404)
   }
@@ -19,10 +19,10 @@ router.get('/:id', async (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
   try {
-    const oneCategory = await Category.findOne({where: id = `${req.params.idid}`})
-    res.status(200).json({response: oneCategory})
+    const oneCategory = await Category.findOne({where: { id: req.params.id}, include: [{model: Product}]})
+    res.status(200).json(oneCategory)
   }catch (error) {
-    res.status(404).json({message: `failed to find id: ${req.body}`})
+    res.status(404).json({message: `failed to find id: ${req.params.id}`})
   }
 });
 
@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   // update a category by its `id` value
   try {
-    const updateCategory = await Category.findOne({where: id = req.params.id})
+    const updateCategory = await Category.findOne({where: {id: req.params.id}})
     updateCategory.category_name = req.body
     res.status(200).json({message: 'update sucessful'})
   }catch(error){
@@ -50,8 +50,8 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   // delete a category by its `id` value
   try {
-    const deleteCategory = await Category.findOne({where: id = req.params.id})
-    deleteCategory.delete()
+    const deleteCategory = await Category.findOne({where: {id: req.params.id}})
+    deleteCategory.destroy()
     res.status(200).json({message: 'deletion successful'})
   } catch(error){
     res.status(404).json({message: 'deletion failed'})
