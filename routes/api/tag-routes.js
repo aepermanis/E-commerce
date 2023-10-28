@@ -18,7 +18,7 @@ router.get('/:id', async (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
   try {
-    const oneTag = await Tag.findOne({where: id = `${req.params.idid}`})
+    const oneTag = await Tag.findOne({where: {id: req.params.id}, include: [{model: Product}]})
     res.status(200).json({response: oneTag})
   }catch (error) {
     res.status(404).json({message: `failed to find id: ${req.body}`})
@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   // update a tag's name by its `id` value
   try {
-    const updateTag = await Tag.findOne({where: id = req.params.id})
+    const updateTag = await Tag.findOne({where: {id:req.params.id}})
     updateTag.tag_name = req.body
     res.status(200).json({message: 'update sucessful'})
   }catch(error){

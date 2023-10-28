@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const allProdcuts = await Product.findAll({include: [{model: Category},{model: Tag}]})
-    return allCategories
+    res.status(200).response(allProdcuts)
   } catch(error){
     res.status(404)
   }
@@ -20,7 +20,7 @@ router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
   try {
-    const oneProduct = await Product.findOne({where: id = `${req.params.idid}`})
+    const oneProduct = await Product.findOne({where: {id: req.params.id}})
     res.status(200).json({response: oneProduct})
   }catch (error) {
     res.status(404).json({message: `failed to find id: ${req.body}`})
@@ -107,7 +107,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
   try {
-    const deleteProduct = await Product.findOne({where: id = req.params.id})
+    const deleteProduct = await Product.findOne({where: {id: req.params.id}})
     deleteProduct.delete()
     res.status(200).json({message: 'deletion successful'})
   } catch(error){

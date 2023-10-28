@@ -9,10 +9,10 @@ Tag.init(
     // define columns
     tag_name: {
       type: DataTypes.STRING,
-      allownull: false
     },
     id: {
-      type: DataTypes.INTEGER, 
+      type: DataTypes.INTEGER,
+      allownull: false, 
       primaryKey: true,
       autoIncrement: true
     }
