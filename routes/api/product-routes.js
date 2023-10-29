@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const allProdcuts = await Product.findAll({include: [{model: Category},{model: Tag}]})
-    res.status(200).response(allProdcuts)
+    res.status(200).json(allProdcuts)
   } catch(error){
     res.status(404)
   }
@@ -108,7 +108,7 @@ router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
   try {
     const deleteProduct = await Product.findOne({where: {id: req.params.id}})
-    deleteProduct.delete()
+    deleteProduct.destroy()
     res.status(200).json({message: 'deletion successful'})
   } catch(error){
     res.status(404).json({message: 'deletion failed'})

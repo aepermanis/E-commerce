@@ -59,3 +59,12 @@ router.delete('/:id', async (req, res) => {
 });
 
 module.exports = router;
+
+
+//{"category_name": "Trading Cards"}
+/*{
+  "product_name": 'Fitted Baseball Hat',
+  "price": 52.99,
+  "stock": 8,
+}*/
+//{"tag_name": "red"}
